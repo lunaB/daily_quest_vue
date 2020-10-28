@@ -1,4 +1,5 @@
 # quest_vue
+데일리퀘스트의 프론트엔드를 vue를 공부하면서 진행
 
 ## Project setup
 ```
