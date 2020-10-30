@@ -23,7 +23,8 @@
                     <router-link :to="{name: 'register'}" class="register">회원가입</router-link>
                 </template>
                 <template v-if="isAuthenticated">
-                    <a @click="logout" class="login">로그아웃</a> 
+                    <a href="#" @click="logout" class="login">로그아웃</a> 
+                    <a href="#" @click="test" class="test">test</a> 
                 </template>
             </div>
         </div>
@@ -32,7 +33,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { LOGOUT } from '../store/actions.type';
+import { LOGOUT, CHECK_AUTH } from '../store/actions.type';
 
 export default {
     name: "Header",
@@ -42,6 +43,11 @@ export default {
     methods: {
         logout() {
             this.$store.dispatch(LOGOUT).then(() => {
+                this.$router.push({ name: "home" });
+            });
+        },
+        test() {
+            this.$store.dispatch(CHECK_AUTH).then(() => {
                 this.$router.push({ name: "home" });
             });
         }

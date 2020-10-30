@@ -3,12 +3,16 @@ import ApiService from "../services/api.service";
 
 import {
     LOGIN,
-    // LOGOUT,
+    LOGOUT,
     // REGISTER,
     CHECK_AUTH,
     // UPDATE_USER
 } from "./actions.type";
-import { SET_AUTH, PURGE_AUTH, SET_ERROR } from "./mutations.type";
+import { 
+    SET_AUTH, 
+    PURGE_AUTH, 
+    SET_ERROR 
+} from "./mutations.type";
 
 const state = {
     error: null,
@@ -24,19 +28,22 @@ const getters = {
     }
 }
 const actions = {
-    
+
     [LOGIN](context, credentials) {
         return new Promise(resolve => {
             ApiService.post('/auth/login', {user: credentials})
                 .then(({ data })=>{
-                    context.commit(SET_AUTH, data.user_id);
+                    context.commit(SET_AUTH, data.user);
                     resolve(data);
                 })
                 .catch(({ response }) => {
-                    // context.commit(SET_ERROR, response.data.errors);
-                    context.commit(SET_ERROR, response);
+                    console.log(response.data)
+                    context.commit(SET_ERROR, response.data.error);
                 });
         })
+    },
+    [LOGOUT](context) {
+        context.commit(PURGE_AUTH)
     },
     [CHECK_AUTH](context) {
         if (JwtService.getToken()) {
@@ -46,7 +53,7 @@ const actions = {
                     context.commit(SET_AUTH, data.user);
                 })
                 .catch(({ response }) => {
-                    context.commit(SET_ERROR, response.data.errors);
+                    context.commit(SET_ERROR, response.data.error);
                 });
         } else {
             context.commit(PURGE_AUTH);
