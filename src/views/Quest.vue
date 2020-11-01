@@ -1,5 +1,5 @@
 <template>
     <div class="quest">
-        guild
+        quest
     </div>
 </template>

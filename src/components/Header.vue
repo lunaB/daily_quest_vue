@@ -1,6 +1,5 @@
 <template>
     <header>
-        <div class="box"></div>
         <div class="fixed">
             <a class="logo" href="/">QUEST_</a>
             <div class="menu">
@@ -54,7 +53,7 @@ export default {
         display: inline-block;
     }
     header {
-        $header_height: 60px;
+        $header_height: 50px;
         height: $header_height;
         .fixed {
             width: 100%;
@@ -90,9 +89,9 @@ export default {
                         transition: all 0.3s;
                         a {
                             padding: 0 15px;
-                            height: 60px;
+                            height: $header_height;
                             color: #eee;
-                            line-height: 60px;
+                            line-height: $header_height;
                         }
                         ul {
                             display: none;
@@ -130,12 +129,12 @@ export default {
             .login_menu {
                 position: relative;
                 float: right;
-                height: 60px;
+                height: $header_height;
                 a {
                     padding: 0 15px;
-                    height: 60px;
+                    height: $header_height;
                     font-size: 21px;
-                    line-height: 60px;
+                    line-height: $header_height;
                     transition: all 0.3s;
                     color: goldenrod;
                     &:hover {

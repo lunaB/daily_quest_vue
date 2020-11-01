@@ -59,14 +59,13 @@ const actions = {
         }
     },
     [REGISTER](context, credentials) {
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
             ApiService.post('/users/register', {user: credentials})
                 .then(({ data }) => {
                     resolve(data);
                 })
                 .catch(({ response }) => {
                     context.commit(SET_ERROR, response.data.error);
-                    reject(response)
                 });
         })
     },
@@ -88,7 +87,6 @@ const mutations = {
         JwtService.destroyToken();
     }
 }
-
 
 export default {
     state,
