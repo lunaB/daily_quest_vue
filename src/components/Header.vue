@@ -24,7 +24,6 @@
                 </template>
                 <template v-if="isAuthenticated">
                     <a href="#" @click="logout" class="login">로그아웃</a> 
-                    <a href="#" @click="test" class="test">test</a> 
                 </template>
             </div>
         </div>
@@ -33,7 +32,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex';
-import { LOGOUT, CHECK_AUTH } from '../store/actions.type';
+import { LOGOUT } from '../store/actions.type';
 
 export default {
     name: "Header",
@@ -46,11 +45,6 @@ export default {
                 this.$router.push({ name: "home" });
             });
         },
-        test() {
-            this.$store.dispatch(CHECK_AUTH).then(() => {
-                this.$router.push({ name: "home" });
-            });
-        }
     }
 }
 </script>

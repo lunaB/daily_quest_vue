@@ -6,6 +6,7 @@ import {
     LOGOUT,
     // REGISTER,
     CHECK_AUTH,
+    REGISTER,
     // UPDATE_USER
 } from "./actions.type";
 import { 
@@ -28,16 +29,14 @@ const getters = {
     }
 }
 const actions = {
-
     [LOGIN](context, credentials) {
         return new Promise(resolve => {
-            ApiService.post('/auth/login', {user: credentials})
+            ApiService.post('/users/login', {user: credentials})
                 .then(({ data })=>{
                     context.commit(SET_AUTH, data.user);
                     resolve(data);
                 })
                 .catch(({ response }) => {
-                    console.log(response.data)
                     context.commit(SET_ERROR, response.data.error);
                 });
         })
@@ -48,7 +47,7 @@ const actions = {
     [CHECK_AUTH](context) {
         if (JwtService.getToken()) {
             ApiService.setHeader();
-            ApiService.get("/auth/user")
+            ApiService.get("/users/user")
                 .then(({ data }) => {
                     context.commit(SET_AUTH, data.user);
                 })
@@ -58,7 +57,19 @@ const actions = {
         } else {
             context.commit(PURGE_AUTH);
         }
-    }
+    },
+    [REGISTER](context, credentials) {
+        return new Promise((resolve, reject) => {
+            ApiService.post('/users/register', {user: credentials})
+                .then(({ data }) => {
+                    resolve(data);
+                })
+                .catch(({ response }) => {
+                    context.commit(SET_ERROR, response.data.error);
+                    reject(response)
+                });
+        })
+    },
 }
 const mutations = {
     [SET_ERROR](state, error) {
